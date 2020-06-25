@@ -2,44 +2,38 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Actions\Auth\AuthenticateUserAction;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\Guard as Auth;
+use App\Http\Requests\AuthenticateUserRequest;
+use App\Http\Responses\UnauthorizedResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class LoginController extends Controller
 {
-    private $auth;
+    private AuthenticateUserAction $authenticateUserAction;
 
-    public function __construct(Auth $auth)
+    public function __construct(AuthenticateUserAction $authenticateUserAction)
     {
-        $this->auth = $auth;
+        $this->authenticateUserAction = $authenticateUserAction;
     }
 
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(AuthenticateUserRequest $request): JsonResponse
     {
-        $this->validate($request, [
-            'email' => 'email|required',
-            'password' => 'required',
-        ]);
+        try {
 
-        $token = $this
-            ->auth
-            ->attempt(
-                [
-                    'email' => $request->get('email'),
-                    'password' => $request->get('password')
-                ]
-            );
+            $token = $this
+                ->authenticateUserAction
+                ->execute($request->validated());
 
-        if (! $token) {
-            return $this->unauthorizedResponse();
+            return $this->respondWithToken($token);
+        } catch (UnauthorizedHttpException $exception) {
+
+            return new UnauthorizedResponse();
         }
-
-        return $this->respondWithToken($token);
     }
 
-    private function unauthorizedResponse()
+    private function unauthorizedResponse(): JsonResponse
     {
         return new JsonResponse(
             [
@@ -49,9 +43,9 @@ class LoginController extends Controller
         );
     }
 
-    protected function respondWithToken($token)
+    protected function respondWithToken(string $token): JsonResponse
     {
-        return response()->json([
+        return new JsonResponse([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
