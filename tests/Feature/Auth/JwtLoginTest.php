@@ -70,4 +70,23 @@ class JwtLoginTest extends TestCase
         $response->assertJsonValidationErrors('email');
         $response->assertStatus(422);
     }
+
+    public function testShouldValidatePassword()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->post(
+            '/api/login',
+            [
+                'email' => $user->email,
+                'password' => '',
+            ],
+            [
+                'accept' => 'application/json'
+            ]
+        );
+
+        $response->assertJsonValidationErrors('password');
+        $response->assertStatus(422);
+    }
 }
