@@ -18,6 +18,11 @@ class LoginController extends Controller
 
     public function __invoke(Request $request): JsonResponse
     {
+        $this->validate($request, [
+            'email' => 'email|required',
+            'password' => 'required',
+        ]);
+
         $token = $this
             ->auth
             ->attempt(
