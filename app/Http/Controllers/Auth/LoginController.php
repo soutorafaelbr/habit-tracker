@@ -26,21 +26,10 @@ class LoginController extends Controller
             $token = $this
                 ->authenticateUserAction
                 ->execute($request->validated());
-
             return new SuccessfulResponse($token);
-        } catch (UnauthorizedHttpException $exception) {
 
+        } catch (UnauthorizedHttpException $exception) {
             return new UnauthorizedResponse();
         }
-    }
-
-    private function unauthorizedResponse(): JsonResponse
-    {
-        return new JsonResponse(
-            [
-                'error' => 'Session unauthorized'
-            ],
-            401
-        );
     }
 }
