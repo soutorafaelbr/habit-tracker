@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Actions\Auth\AuthenticateUserAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthenticateUserRequest;
+use App\Http\Responses\SuccessfulResponse;
 use App\Http\Responses\UnauthorizedResponse;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -26,7 +27,7 @@ class LoginController extends Controller
                 ->authenticateUserAction
                 ->execute($request->validated());
 
-            return $this->respondWithToken($token);
+            return new SuccessfulResponse($token);
         } catch (UnauthorizedHttpException $exception) {
 
             return new UnauthorizedResponse();
@@ -41,14 +42,5 @@ class LoginController extends Controller
             ],
             401
         );
-    }
-
-    protected function respondWithToken(string $token): JsonResponse
-    {
-        return new JsonResponse([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
     }
 }

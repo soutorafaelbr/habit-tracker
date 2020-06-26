@@ -4,6 +4,8 @@
 namespace App\Actions\Auth;
 
 
+use App\DataTransferObjects\AuthenticatedData;
+use App\JWT;
 use Illuminate\Contracts\Auth\Guard as Auth;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
@@ -18,13 +20,16 @@ class AuthenticateUserAction
 
     public function execute($authenticationData)
     {
-        $attempt = $this->attempt($authenticationData);
+        $token = $this->attempt($authenticationData);
 
-        if (! $attempt) {
+        if (! $token) {
             throw new UnauthorizedHttpException("Invalid Credentials");
         }
 
-        return $attempt;
+        return (new AuthenticatedData())
+            ->setToken($token)
+            ->setTokenType(JWT::TYPE)
+            ->setExpiresIn(JWT::EXPIRATION);
     }
 
     private function attempt($authenticationData)
