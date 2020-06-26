@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\Auth\AuthenticateUserAction;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AuthenticateUserRequest;
+use App\Http\Requests\Auth\AuthenticateUserRequest;
 use App\Http\Responses\SuccessfulResponse;
 use App\Http\Responses\UnauthorizedResponse;
 use Illuminate\Http\JsonResponse;
