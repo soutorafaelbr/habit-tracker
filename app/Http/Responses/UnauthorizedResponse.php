@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Responses;
 
 use Illuminate\Http\JsonResponse;
@@ -13,10 +14,9 @@ class UnauthorizedResponse extends JsonResponse
     {
         parent::__construct(
             [
-                'error' => $this->message
+                'error' => $this->message,
             ],
             $this->code
         );
     }
-
 }

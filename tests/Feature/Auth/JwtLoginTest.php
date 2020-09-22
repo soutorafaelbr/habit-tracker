@@ -20,10 +20,10 @@ class JwtLoginTest extends TestCase
             '/api/login',
             [
                 'email' => $user->email,
-                'password' => 'password'
+                'password' => 'password',
             ],
             [
-                'accept' => 'application/json'
+                'accept' => 'application/json',
             ]
         );
 
@@ -42,10 +42,10 @@ class JwtLoginTest extends TestCase
             '/api/login',
             [
                 'email' => 'email@email.org',
-                'password' => 'password'
+                'password' => 'password',
             ],
             [
-                'accept' => 'application/json'
+                'accept' => 'application/json',
             ]
         );
 
@@ -60,10 +60,10 @@ class JwtLoginTest extends TestCase
             '/api/login',
             [
                 'email' => '',
-                'password' => 'password'
+                'password' => 'password',
             ],
             [
-                'accept' => 'application/json'
+                'accept' => 'application/json',
             ]
         );
 
@@ -82,7 +82,7 @@ class JwtLoginTest extends TestCase
                 'password' => '',
             ],
             [
-                'accept' => 'application/json'
+                'accept' => 'application/json',
             ]
         );
 

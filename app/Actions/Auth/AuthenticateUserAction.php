@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Actions\Auth;
-
 
 use App\DataTransferObjects\AuthenticatedData;
 use App\JWT;
@@ -23,7 +21,7 @@ class AuthenticateUserAction
         $token = $this->attempt($authenticationData);
 
         if (! $token) {
-            throw new UnauthorizedHttpException("Invalid Credentials");
+            throw new UnauthorizedHttpException('Invalid Credentials');
         }
 
         return (new AuthenticatedData())
@@ -39,7 +37,7 @@ class AuthenticateUserAction
             ->attempt(
                 [
                     'email' => $authenticationData['email'],
-                    'password' => $authenticationData['password']
+                    'password' => $authenticationData['password'],
                 ]
             );
     }

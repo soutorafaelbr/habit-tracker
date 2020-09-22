@@ -11,7 +11,5 @@ Route::post('login', LoginController::class);
 Route::group([
     'middleware' => 'auth:api',
 ], function () {
-
     Route::get('goals', [GoalController::class, 'index']);
-
 });
