@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Responses;
 
 use Illuminate\Http\JsonResponse;
@@ -13,10 +14,9 @@ class SuccessfulResponse extends JsonResponse
     {
         parent::__construct(
             [
-                'data' => $data
+                'data' => $data,
             ],
             $this->code
         );
     }
-
 }

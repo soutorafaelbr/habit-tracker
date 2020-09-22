@@ -22,12 +22,11 @@ class LoginController extends Controller
     public function __invoke(AuthenticateUserRequest $request): JsonResponse
     {
         try {
-
             $token = $this
                 ->authenticateUserAction
                 ->execute($request->validated());
-            return new SuccessfulResponse($token);
 
+            return new SuccessfulResponse($token);
         } catch (UnauthorizedHttpException $exception) {
             return new UnauthorizedResponse();
         }

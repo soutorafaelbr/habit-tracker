@@ -22,7 +22,7 @@ class RegisterUserTest extends TestCase
             '/api/register',
             array_merge($user, ['password' => 123456]),
             [
-                'accept' => 'application/json'
+                'accept' => 'application/json',
             ]
         );
 
@@ -49,7 +49,7 @@ class RegisterUserTest extends TestCase
             '/api/register',
             array_merge($user, ['password' => 123456]),
             [
-                'accept' => 'application/json'
+                'accept' => 'application/json',
             ]
         );
 
@@ -67,7 +67,7 @@ class RegisterUserTest extends TestCase
             '/api/register',
             array_merge($user, ['password' => 123456]),
             [
-                'accept' => 'application/json'
+                'accept' => 'application/json',
             ]
         );
 
@@ -85,7 +85,7 @@ class RegisterUserTest extends TestCase
             '/api/register',
             array_merge($user, ['password' => 123456]),
             [
-                'accept' => 'application/json'
+                'accept' => 'application/json',
             ]
         );
 
@@ -103,7 +103,7 @@ class RegisterUserTest extends TestCase
             '/api/register',
             array_merge($user, ['password' => 123456]),
             [
-                'accept' => 'application/json'
+                'accept' => 'application/json',
             ]
         );
 
@@ -121,7 +121,7 @@ class RegisterUserTest extends TestCase
             '/api/register',
             $user,
             [
-                'accept' => 'application/json'
+                'accept' => 'application/json',
             ]
         );
 

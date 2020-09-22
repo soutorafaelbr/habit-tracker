@@ -20,7 +20,7 @@ class GoalTest extends TestCase
 
         $goals = factory(Goal::class, 5)->create(
             [
-                'user_id' => $user->id
+                'user_id' => $user->id,
             ]
         );
 
@@ -30,7 +30,7 @@ class GoalTest extends TestCase
             '/api/goals',
             [
                 'Authorization' => "Bearer $token",
-                'accept' => 'application/json'
+                'accept' => 'application/json',
             ]
         );
 
